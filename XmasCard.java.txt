@@ -1,0 +1,522 @@
+/**
+ * Assignment: Create an animation that generates an animated card for the winter holidays. Assignment required that arrays not be used.
+ * My implementation shows a Christmas Tree with flashing lights, and snowflakes falling from the sky continuously
+ * @author (Akshay Gupta) 
+ * @version (12/6/2016)
+ */
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.Random;
+import javax.swing.Timer.*;
+
+
+public class XmasCard extends JFrame
+{
+    
+   //panel dimensions
+    public int width = 800;
+    public int height = 500;
+    public int count = 0;
+    
+    public int floorY = 402; //snowy floor height
+    public int floor = 410; //just below floor
+    Random gen = new Random();
+    
+    
+        
+    //Top Triangle on tree variables
+        public int [] triX ={ 325, 357, 390 }; //each of the three points on the top triangles's (also known as triangle 1's) x-coordinates       
+        public int [] triY ={ 207, 155, 207 }; //each of the three points on the top triangles's (also known as triangle 1's) y-coordinates
+
+        
+    //Second to Top Triangle on tree variables
+        public int [] triX2 ={ 320, 358, 395 }; //each of the three points on the second to top triangles's (also known as triangle 2's) x-coordinates
+        public int [] triY2 ={ 245, 190, 245 }; //each of the three points on the second to top triangles's (also known as triangle 2's) y-coordinates
+        
+    //Third to Top Triangle on tree variables
+        public int [] triX3 ={ 315, 358, 400 }; //each of the three points on the third to top triangles's (also known as triangle 3's) x-coordinates
+        public int [] triY3 ={ 280, 225, 280 }; //each of the three points on the third to top triangles's (also known as triangle 3's) y-coordinates
+        
+     //fourth to top triangle on tree variables
+        public int [] triX4 ={ 310, 358, 405 }; //each of the three points on the fourth to top triangles's (also known as triangle 4's) x-coordinates
+        public int [] triY4 ={ 316, 260, 316 }; //each of the three points on the fourth to top triangles's (also known as triangle 4's) y-coordinates
+        
+      //bottom triangle on tree variables
+        public int [] triX5 ={ 305, 359, 410 }; //each of the three points on the bottom triangles's (also known as triangle 5's) x-coordinates
+        public int [] triY5 ={ 352, 295, 352 }; //each of the three points on the bottom triangles's (also known as triangle 5's) y-coordinates
+        
+      //rectangle (aka stump) on tree variables
+        public int rx = 342; 
+        public int ry = 352;
+        public int rw = 35;
+        public int rh = 50;
+
+      //ornament 1 variables
+        public int ox = 330; //ornament 1's x-position
+        public int oy = 200; //ornament 1's y-position
+        public int diameter = 18;
+        public int radius = diameter/2;
+        
+      //ornament 2 variables
+        public int ox2 = 324; //ornament 2's x-position
+        public int oy2 = 240; //ornament 2's y-position
+        public int diameter2 = 18;
+        public int radius2 = diameter2/2;
+      
+      //ornament 3 variables
+        public int ox3 = 360; //ornament 3's x-position
+        public int oy3 = 220; //ornament 3's x-position
+        public int diameter3 = 18;
+        public int radius3 = diameter3/2;
+      
+      //ornament 4 variables
+        public int ox4 = 375; //ornament 4's x-position
+        public int oy4 = 272; //ornament 4's x-position
+        public int diameter4 = 18;
+        public int radius4 = diameter4/2;
+      
+      //ornament 5 variables
+        public int ox5 = 325; //ornament 5's x-position
+        public int oy5 = 277; //ornament 5's y-position
+        public int diameter5 = 18;
+        public int radius5 = diameter5/2;
+      
+      //ornament 6 variables
+        public int ox6 = 350; //ornament 6's x-position
+        public int oy6 = 300; //ornament 6's y-position
+        public int diameter6 = 18;
+        public int radius6 = diameter6/2;
+        
+      //ornament 7 variables
+        public int ox7 = 315; //ornament 7's x-position
+        public int oy7 = 340; //ornament 7's y-position
+        public int diameter7 = 18;
+        public int radius7 = diameter7/2;
+        
+      //ornament 8 variables
+        public int ox8 = 390; //ornament 8's x-position
+        public int oy8 = 350; //ornament 8's y-position
+        public int diameter8 = 18;
+        public int radius8 = diameter8/2;
+        
+        //snowflake 1 variables
+        public int sx = 24; //snowflake 1's x-position
+        public int sy = 0; //snowflake 1's y-position
+        public int Movesy = 10; //snowflake 1's y-position incremental value, acts like a 'speed' variable
+
+        //the other 21 snowflakes have similar variable names to snowflake 1, for example sx to sx2 - the similar variables in name also share the same purpose. For example, sx and sx2 both hold their respective snowflakes x-position, and sy and sy4 both share the purpose of holding their respective snowflakes y-position
+        
+        //snowflake 2 variables
+        public int sx2 = 67;
+        public int sy2 = 0;
+        public int Movesy2 = 7;
+
+        //snowflake 3 variables
+        public int sx3 = 105;
+        public int sy3 = 0;
+        public int Movesy3 = 4;
+        
+        //snowflake 4 variables
+        public int sx4 = 174;
+        public int sy4 = 0;
+        public int Movesy4 = 5;
+
+        //snowflake 5 variables
+        public int sx5 = 213;
+        public int sy5 = 0;
+        public int Movesy5 = 9;
+
+        //snowflake 6 variables
+        public int sx6 = 239;
+        public int sy6 = 0;
+        public int Movesy6 = 10;
+        
+        //snowflake 7 variables
+        public int sx7 = 264;
+        public int sy7 = 0;
+        public int Movesy7 = 8;
+
+        //snowflake 8 variables
+        public int sx8 = 300;
+        public int sy8 = 0;
+        public int Movesy8 = 5;
+
+        //snowflake 9 variables
+        public int sx9 = 379;
+        public int sy9 = 0;
+        public int Movesy9 = 7;
+
+        //snowflake 10 variables
+        public int sx10 = 332;
+        public int sy10 = 0;
+        public int Movesy10 = 4;
+
+        //snowflake 11 variables
+        public int sx11 = 405;
+        public int sy11 = 0;
+        public int Movesy11 = 5;
+
+        //snowflake 12 variables
+        public int sx12 = 442;
+        public int sy12 = 0;
+        public int Movesy12 = 2;
+
+        //snowflake 13 variables
+        public int sx13 = 471;
+        public int sy13 = 0;
+        public int Movesy13 = 5;
+
+        //snowflake 14 variables
+        public int sx14 = 513;
+        public int sy14 = 0;
+        public int Movesy14 = 2;
+
+        //snowflake 15 variables
+        public int sx15 = 567;
+        public int sy15 = 0;
+        public int Movesy15 = 6;
+
+        //snowflake 16 variables
+        
+        public int sx16 = 609;
+        public int sy16 = 0;
+        public int Movesy16 = 3;
+
+        //snowflake 17 variables
+        public int sx17 = 643;
+        public int sy17 = 0;
+        public int Movesy17 = 6;
+
+        //snowflake 18 variables
+        
+        public int sx18 = 689;
+        public int sy18 = 0;
+        public int Movesy18 = 4;
+
+        //snowflake 19 variables
+        
+        public int sx19 = 735;
+        public int sy19 = 0;
+        public int Movesy19 = 5;
+
+        //snowflake 20 variables
+        public int sx20 = 777;
+        public int sy20 = 0;
+        public int Movesy20 = 8;
+
+        //snowflake 21 variables
+        
+        public int sx21 = 140;
+        public int sy21 = 0;
+        public int Movesy21 = 7;
+
+        //snowflake 22 variables
+        
+        public int sx22 = 333;
+        public int sy22 = 0;
+        public int Movesy22 = 4;
+           
+    public class MyJPanel extends JPanel
+    {
+
+    //control the delay for animation
+            public int delay = 19;   //milliseconds
+          
+        MyJPanel()
+        {
+            ActionListener counter = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) 
+            { 
+                count++;
+                repaint(); 
+                if (count == 30)
+                {
+                    count = 0; //limits counter to only go from 0 to 30
+                }
+
+
+                sy += Movesy;  //moves snowflake 1 down by Movesy amount every time, makes it look like its falling
+                if (sy >= floor)   {sy = (gen.nextInt(10)-10);  Movesy = gen.nextInt(10)+1; }  //once snowflake 1 hits the ground, it resets to the top and changes speed (by changing Movesy) - as if its a different snowflake
+
+                sy2 += Movesy2;  //moves snowflake 2 down by Movesy2 amount every time, makes it look like its falling
+                if (sy2 >= floor)   {sy2 = (gen.nextInt(10)-10);  Movesy2 = gen.nextInt(10)+1; }  //once snowflake 2 hits the ground, it resets to the top and changes speed (by changing Movesy2) - as if its a different snowflake
+                
+                sy3 += Movesy3;  //moves snowflake 3 down by Movesy3 amount every time, makes it look like its falling
+                if (sy3 >= floor)   {sy3 = (gen.nextInt(10)-10);  Movesy3 = gen.nextInt(10)+1; }  //once snowflake 3 hits the ground, it resets to the top and changes speed (by changing Movesy3) - as if its a different snowflake
+                
+                sy4 += Movesy4;  //moves snowflake 4 down by Movesy4 amount every time, makes it look like its falling
+                if (sy4 >= floor)   {sy4 = (gen.nextInt(10)-10);  Movesy4 = gen.nextInt(10)+1; }  //once snowflake 4 hits the ground, it resets to the top and changes speed (by changing Movesy4) - as if its a different snowflake
+                
+                sy5 += Movesy5;  //moves snowflake 5 down by Movesy5 amount every time, makes it look like its falling
+                if (sy5 >= floor)   {sy5 = (gen.nextInt(10)-10);  Movesy5 = gen.nextInt(10)+1; }  //once snowflake 5 hits the ground, it resets to the top and changes speed (by changing Movesy5) - as if its a different snowflake
+
+                sy6 += Movesy6;  //moves snowflake 6 down by Movesy6 amount every time, makes it look like its falling
+                if (sy6 >= floor)   {sy6 = (gen.nextInt(10)-10);  Movesy6 = gen.nextInt(10)+1; }  //once snowflake 6 hits the ground, it resets to the top and changes speed (by changing Movesy6) - as if its a different snowflake
+
+                sy7 += Movesy5;  //moves snowflake 7 down by Movesy7 amount every time, makes it look like its falling
+                if (sy7 >= floor)   {sy7 = (gen.nextInt(10)-10);  Movesy7 = gen.nextInt(10)+1; }  //once snowflake 7 hits the ground, it resets to the top and changes speed (by changing Movesy7) - as if its a different snowflake
+
+                sy8 += Movesy8;  //moves snowflake 8 down by Movesy8 amount every time, makes it look like its falling
+                if (sy8 >= floor)   {sy8 = (gen.nextInt(10)-10);  Movesy8 = gen.nextInt(10)+1; }  //once snowflake 8 hits the ground, it resets to the top and changes speed (by changing Movesy8) - as if its a different snowflake
+                
+                sy9 += Movesy9;  //moves snowflake 9 down by Movesy9 amount every time, makes it look like its falling
+                if (sy9 >= floor)   {sy9 = (gen.nextInt(10)-10);  Movesy9 = gen.nextInt(10)+1; }  //once snowflake 9 hits the ground, it resets to the top and changes speed (by changing Movesy9) - as if its a different snowflake
+
+                sy10 += Movesy10;  //moves snowflake 10 down by Movesy10 amount every time, makes it look like its falling
+                if (sy10 >= floor)   {sy10 = (gen.nextInt(10)-10);  Movesy10 = gen.nextInt(10)+1; }  //once snowflake 10 hits the ground, it resets to the top and changes speed (by changing Movesy10) - as if its a different snowflake
+             
+                sy11 += Movesy11;  //moves snowflake 11 down by Movesy11 amount every time, makes it look like its falling
+                if (sy11 >= floor)   {sy11 = (gen.nextInt(10)-10);  Movesy11 = gen.nextInt(10)+1; }  //once snowflake 11 hits the ground, it resets to the top and changes speed (by changing Movesy11) - as if its a different snowflake
+             
+                sy12 += Movesy12;  //moves snowflake 12 down by Movesy12 amount every time, makes it look like its falling
+                if (sy12 >= floor)   {sy12 = (gen.nextInt(10)-10);  Movesy12 = gen.nextInt(10)+1; }  //once snowflake 12 hits the ground, it resets to the top and changes speed (by changing Movesy12) - as if its a different snowflake
+                
+                sy13 += Movesy13;  //moves snowflake 13 down by Movesy13 amount every time, makes it look like its falling
+                if (sy13 >= floor)   {sy13 = (gen.nextInt(10)-10);  Movesy13 = gen.nextInt(10)+1; }  //once snowflake 13 hits the ground, it resets to the top and changes speed (by changing Movesy13) - as if its a different snowflake
+                
+                sy14 += Movesy14;  //moves snowflake 14 down by Movesy14 amount every time, makes it look like its falling
+                if (sy14 >= floor)   {sy14 = (gen.nextInt(10)-10);  Movesy14 = gen.nextInt(10)+1; }  //once snowflake 14 hits the ground, it resets to the top and changes speed (by changing Movesy14) - as if its a different snowflake
+                
+                sy15 += Movesy15;  //moves snowflake 15 down by Movesy15 amount every time, makes it look like its falling
+                if (sy15 >= floor)   {sy15 = (gen.nextInt(10)-10);  Movesy15 = gen.nextInt(10)+1; }  //once snowflake 15 hits the ground, it resets to the top and changes speed (by changing Movesy15) - as if its a different snowflake
+
+                sy16 += Movesy16;  //moves snowflake 16 down by Movesy16 amount every time, makes it look like its falling
+                if (sy16 >= floor)   {sy16 = (gen.nextInt(10)-10);  Movesy16 = gen.nextInt(10)+1; }  //once snowflake 16 hits the ground, it resets to the top and changes speed (by changing Movesy16) - as if its a different snowflake
+
+                sy17 += Movesy15;  //moves snowflake 17 down by Movesy17 amount every time, makes it look like its falling
+                if (sy17 >= floor)   {sy17 = (gen.nextInt(10)-10);  Movesy17 = gen.nextInt(10)+1; }  //once snowflake 17 hits the ground, it resets to the top and changes speed (by changing Movesy17) - as if its a different snowflake
+
+                sy18 += Movesy18;  //moves snowflake 18 down by Movesy18 amount every time, makes it look like its falling
+                if (sy18 >= floor)   {sy18 = (gen.nextInt(10)-10);  Movesy18 = gen.nextInt(10)+1; }  //once snowflake 18 hits the ground, it resets to the top and changes speed (by changing Movesy18) - as if its a different snowflake
+                
+                sy19 += Movesy19;  //moves snowflake 19 down by Movesy19 amount every time, makes it look like its falling
+                if (sy19 >= floor)   {sy19 = (gen.nextInt(10)-10);  Movesy19 = gen.nextInt(10)+1; }  //once snowflake 19 hits the ground, it resets to the top and changes speed (by changing Movesy19) - as if its a different snowflake
+
+                sy20 += Movesy20;  //moves snowflake 20 down by Movesy20 amount every time, makes it look like its falling
+                if (sy20 >= floor)   {sy20 = (gen.nextInt(10)-10);  Movesy20 = gen.nextInt(10)+1; }  //once snowflake 20 hits the ground, it resets to the top and changes speed (by changing Movesy20) - as if its a different snowflake
+                               
+                sy21 += Movesy21;  //moves snowflake 21 down by Movesy21 amount every time, makes it look like its falling
+                if (sy21 >= floor)   {sy21 = (gen.nextInt(10)-10);  Movesy21 = gen.nextInt(10)+1; }  //once snowflake 21 hits the ground, it resets to the top and changes speed (by changing Movesy21) - as if its a different snowflake
+             
+                sy22 += Movesy22;  //moves snowflake 22 down by Movesy22 amount every time, makes it look like its falling
+                if (sy22 >= floor)   {sy22 = (gen.nextInt(10)-10);  Movesy22 = gen.nextInt(10)+1; }  //once snowflake 22 hits the ground, it resets to the top and changes speed (by changing Movesy22) - as if its a different snowflake
+                
+
+            }};
+         new Timer(delay, counter).start();
+        }
+
+//where to draw everything and color them
+        public void paintComponent(Graphics g)
+        {
+                super.paintComponent(g);
+       
+        
+                //SET BACKGROUND COLOR
+g.setColor(new Color(25,25,112));
+g.fillRect(0,0,width,height);
+
+//create snowy floor
+g.setColor(Color.white);
+g.fillRect(0,floorY,width,height);
+
+//draws triangle 1 with a custom rgb value for a green color
+g.setColor(new Color(34,139,34));
+g.fillPolygon(triX, triY, 3);
+//draws triangle 2 with a custom rgb value for a green color
+g.setColor(new Color(34,139,34));
+g.fillPolygon(triX2, triY2, 3);
+//draws triangle 3 with a custom rgb value for a green color
+g.setColor(new Color(34,139,34));
+g.fillPolygon(triX3, triY3, 3);
+//draws triangle 4 with a custom rgb value for a green color
+g.setColor(new Color(34,139,34)); 
+g.fillPolygon(triX4, triY4, 3);
+//draws triangle 5 with a custom rgb value for a green color
+g.setColor(new Color(34,139,34));
+g.fillPolygon(triX5, triY5, 3);
+//draws triangle 6 with a custom rgb value for a green color
+g.setColor(new Color(90,0,0));
+g.fillRect(rx,ry,rw,rh);
+
+//change colors after 15 milliseconds of the original color
+if (count >= 15)
+    {
+        //change ornament 1 to orange
+    g.setColor(Color.orange); 
+    g.fillOval(ox,oy,diameter, diameter);
+        //change ornament 2 to red
+    g.setColor(Color.red);
+    g.fillOval(ox2,oy2,diameter2, diameter2);
+        //change ornament 3 to green
+    g.setColor(Color.green);
+    g.fillOval(ox3,oy3,diameter3, diameter3);
+        //change ornament 4 to blue
+    g.setColor(Color.blue);
+    g.fillOval(ox4,oy4,diameter4, diameter4);
+        //change ornament 5 to orange
+    g.setColor(Color.orange);
+    g.fillOval(ox5,oy5,diameter5, diameter5);
+        //change ornament 6 to yellow
+    g.setColor(Color.yellow);
+    g.fillOval(ox6,oy6,diameter6, diameter6);
+        //change ornament 7 to green
+    g.setColor(Color.green);
+    g.fillOval(ox7,oy7,diameter7, diameter7);
+        //change ornament 8 to red
+    g.setColor(Color.red);
+    g.fillOval(ox8,oy8,diameter8, diameter8);
+    }
+//change color back to the original color 15 milliseconds after the ornaments change to the other color
+else if (count < 15)
+    {
+        //change ornament 1 back to red
+    g.setColor(Color.red); 
+    g.fillOval(ox,oy,diameter, diameter);
+        //change ornament 2 back to green
+    g.setColor(Color.green);
+    g.fillOval(ox2,oy2,diameter2, diameter2);
+        //change ornament 3 back to blue
+    g.setColor(Color.blue);
+    g.fillOval(ox3,oy3,diameter3, diameter3);
+        //change ornament 4 back to yellow
+    g.setColor(Color.yellow);
+    g.fillOval(ox4,oy4,diameter4, diameter4);
+        //change ornament 5 back to blue
+    g.setColor(Color.blue);
+    g.fillOval(ox5,oy5,diameter5, diameter5);
+        //change ornament 6 back to red
+    g.setColor(Color.red);
+    g.fillOval(ox6,oy6,diameter6, diameter6);
+        //change ornament 7 back to yellow
+    g.setColor(Color.yellow);
+    g.fillOval(ox7,oy7,diameter7, diameter7);
+        //change ornament 8 back to green
+    g.setColor(Color.green);
+    g.fillOval(ox8,oy8,diameter8, diameter8);
+    }
+
+//draw the snowflakes
+
+//draw snowflake 1
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx,sy);
+//draw snowflake 2
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx2,sy2);
+//draw snowflake 3
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx3,sy3);
+//draw snowflake 4
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx4,sy4);
+//draw snowflake 5
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx5,sy5);
+      //draw snowflake 6
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx6,sy6);
+//draw snowflake 7
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx7,sy7);
+//draw snowflake 8
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx8,sy8);
+//draw snowflake 9
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx9,sy9);
+//draw snowflake 10
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx10,sy10);
+//draw snowflake 11
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx11,sy11);
+//draw snowflake 12
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx12,sy12);
+//draw snowflake 13
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx13,sy13);
+//draw snowflake 14
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx14,sy14);
+//draw snowflake 15
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx15,sy15);
+//draw snowflake 16
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx16,sy16);
+//draw snowflake 17
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx17,sy17);
+//draw snowflake 18
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx18,sy18);
+//draw snowflake 19
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx19,sy19);
+//draw snowflake 20
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx20,sy20);
+//draw snowflake 21
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx21,sy21); 
+//draw snowflake 22
+      g.setColor(Color.white);
+      g.setFont(new Font("Times New Roman", 70, 30));
+      g.drawString("*",sx22,sy22);
+
+
+//Happy Holidays and date at the bottom left of screen
+      g.setColor(Color.red);
+      g.setFont(new Font("Arial", 70, 30));
+      g.drawString("Happy Holidays from Akshay Gupta - December 2016", 5, height - 45);
+      
+
+        }    
+    }
+
+
+//****** MAIN SECTION *************//
+    public static void main()
+    {         
+      new XmasCard();     
+    }
+
+
+    XmasCard()
+    {
+        Container container = getContentPane();
+        MyJPanel panel = new MyJPanel();
+        container.add(panel);     
+        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(width,height);
+        setTitle("Christmas Card by Akshay Gupta");
+        setVisible(true);
+    }
+
+
+}
